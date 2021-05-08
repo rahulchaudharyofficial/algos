@@ -61,3 +61,38 @@ Test(stack_app_test, decimal_to_binary) {
     }
     cr_assert(array_eq(output,expected_output)==0,"Must be equal");
 }
+
+
+Test(stack_app_test, valid_parsing_test) {
+    char* expr1 = "((a+b)/c)";
+    char* c = NULL;
+    while(*expr1!='\0') {
+        c = (char*) malloc(sizeof(int));
+        *c = *expr1;
+        if(*c=='(' || *c=='{' || *c=='[') {
+            push(stack, c);
+        }
+        else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
+            char *top = (char*) pop(stack);
+        }
+        expr1++;
+    }
+    cr_assert(empty_stack(stack)==true,"Stack must be empty");
+}
+
+Test(stack_app_test, invalid_parsing_test) {
+    char* expr1 = "((a+b)/c";
+    char* c = NULL;
+    while(*expr1!='\0') {
+        c = (char*) malloc(sizeof(int));
+        *c = *expr1;
+        if(*c=='(' || *c=='{' || *c=='[') {
+            push(stack, c);
+        }
+        else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
+            char *top = (char*) pop(stack);
+        }
+        expr1++;
+    }
+    cr_assert(empty_stack(stack)==false,"Stack must not be empty");
+}
