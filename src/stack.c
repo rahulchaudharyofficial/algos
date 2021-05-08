@@ -1,6 +1,3 @@
-#include<stdio.h>
-#include<stdlib.h>
-
 #include "stack.h"
 #include "color.h"
 
@@ -20,7 +17,7 @@ stack_t* create_stack() {
 	{
 		stack->count = 0;
 		stack->top = NULL;
-		success_print("Stack successfully created");
+		//success_print("Stack successfully created");
 		return stack;
 	}
 	else {
@@ -29,7 +26,7 @@ stack_t* create_stack() {
 	}
 }
 
-bool_t push(stack_t* stack, void* dataPtr) {
+bool push(stack_t* stack, void* dataPtr) {
 	if(stack) {
 		if(!full_stack(stack)) {
 			node_t *node = (node_t*) malloc(sizeof(node_t));
@@ -71,7 +68,7 @@ void* pop(stack_t* stack) {
 	return output;
 }
 
-bool_t empty_stack(stack_t* stack) {
+bool empty_stack(stack_t* stack) {
 	if(stack->count == 0)
 		return true;
 	return false;
@@ -80,7 +77,7 @@ bool_t empty_stack(stack_t* stack) {
 /**
  * Try creating a node if fail then throw StackOverflowError
  */ 
-bool_t full_stack(stack_t* stack) {
+bool full_stack(stack_t* stack) {
 	node_t *node = (node_t*) malloc(sizeof(node_t));
 	if(node) {
 		free(node);
@@ -136,11 +133,4 @@ int stack_count(stack_t* stack) {
 		error_print("StackError: Stack is NULL");
 		return -1;
 	}
-}
-
-
-int main(int argc, char **argv) {
-	//stack_t *stack = create_stack();
-
-	return 0;
 }

@@ -7,6 +7,13 @@ OBJDIR=obj
 LIBDIR=lib
 BINDIR=bin
 
+TEST=tests
+TESTBIN=$(TEST)/bin
+TESTS=$(wildcard $(TEST)/*.c)
+TESTBINS=$(patsubst $(TEST)/%.c,$(TESTBIN)/%, $(TESTS))
+
+
+
 BIN=$(BINDIR)/main
 LIB=$(LIBDIR)/algos.a
 
@@ -15,15 +22,17 @@ VPATH=$(SRCDIR)
 SOURCE=$(wildcard $(SRCDIR)/*.c)
 OBJECT=$(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o, $(SOURCE))
 
-all: $(BIN)
+
+
+all: $(LIB)
 
 $(BIN): $(OBJECT)
-	$(CC) $(CFLAG) $(OBJECT) -o $@
+#	$(CC) $(CFLAG) $(OBJECT) -o $@
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.c
 	$(CC) $(CFLAG) -c $< -o $@
 
-lib: $(BIN)
+$(LIB): $(BIN)
 	$(LIB_COMMAND) $(LIB) $(OBJECT)
 
 .PHONY: run
@@ -31,6 +40,17 @@ lib: $(BIN)
 
 run: $(BIN)
 	./$(BIN)
+
+
 clean:
-	rm ./obj/* ./bin/*
+	rm $(OBJDIR)/* $(LIBDIR)/* $(TESTBIN)/*
+
+$(TESTBIN)/%: $(TEST)/%.c
+	$(CC) $(CFLAG) $< $(LIB) -o $@ -lcriterion
+
+test: $(LIB) $(TESTBIN) $(TESTBINS)
+	for t in $(TESTBINS) ; do ./$$t --verbose ; done
+
+$(TESTBIN):
+	mkdir $@
 
