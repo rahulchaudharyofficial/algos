@@ -53,7 +53,20 @@ bool_t push(stack_t* stack, void* dataPtr) {
 void* pop(stack_t* stack) {
 	void *output = NULL;
 	if(stack) {
-		
+		if(!empty_stack(stack)) {
+			node_t *temp = stack->top;
+			output = temp->dataPtr;
+			stack->top = temp->link;
+			free(temp);
+			temp = NULL;
+			(stack->count)--;
+		}
+		else {
+			error_print("StackUnderflowError : Stack is empty, nothing to pop");
+		}
+	}
+	else {
+		error_print("StackError: Stack is NULL, push is not allowed");
 	}
 	return output;
 }
@@ -69,8 +82,7 @@ bool_t empty_stack(stack_t* stack) {
  */ 
 bool_t full_stack(stack_t* stack) {
 	node_t *node = (node_t*) malloc(sizeof(node_t));
-	if(node)
-	{
+	if(node) {
 		free(node);
 		node = NULL;
 		return false;
@@ -78,8 +90,52 @@ bool_t full_stack(stack_t* stack) {
 	return true;
 }
 
-stack_t* destroy_stack(stack_t* stack) {
-	return NULL;
+void* stakc_top(stack_t* stack) {
+	void* output = NULL;
+	if(stack) {
+		if(!empty_stack(stack)) {
+			output = stack->top->dataPtr;
+		}
+	}
+	else {
+		error_print("StackError: Stack is NULL, Nothing to Top");
+	}
+	return output;
+}
+
+void destroy_stack(stack_t* stack) {
+	if(stack)
+	{
+		if(!empty_stack(stack)) {
+			node_t* temp;
+
+			while(stack->top != NULL) {
+				free(stack->top->dataPtr);
+				temp = stack->top;
+				stack->top = temp->link;
+				free(temp);
+			}
+			free(stack);
+			stack = NULL;
+		}
+		else {
+			free(stack);
+			stack = NULL;
+		}
+	}
+	else {
+		error_print("StackError: Stack is NULL, Nothing to destroy");
+	}
+}
+
+int stack_count(stack_t* stack) {
+	if(stack) {
+		return stack->count;
+	}
+	else {
+		error_print("StackError: Stack is NULL");
+		return -1;
+	}
 }
 
 
