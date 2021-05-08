@@ -9,5 +9,7 @@
 	void* pop(stack_t*);
 	bool_t empty_stack(stack_t*);
 	bool_t full_stack(stack_t*);
-	stack_t* destroy_stack(stack_t*);
+	void destroy_stack(stack_t*);
+	void* stakc_top(stack_t*);
+	int stack_count(stack_t*);
 #endif
