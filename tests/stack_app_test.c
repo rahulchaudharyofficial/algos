@@ -1,5 +1,6 @@
 #include<criterion/criterion.h>
 #include "../src/stack.h"
+#include "../src/utils.h"
 #include<string.h>
 
 stack_t* stack = NULL;
@@ -40,23 +41,6 @@ Test(stack_app_test, reverse_number_app) {
     cr_assert(strcmp(output,expected_output)==0,"Must be equal");
 }
 
-bool array_eq(const int* a1, const int* a2) {
-    
-    if(sizeof(a1) == sizeof(a2)) {
-        bool eq = true;
-        for(int i=0; i< sizeof(a1);i++) {
-            if(*(a1+i) != *(a2+i)) {
-                eq = false;
-                break;
-            }
-        }
-        return eq;
-    }
-    else {
-        return false;
-    }
-}
-
 Test(stack_app_test, decimal_to_binary) {
     int num = 100;
     int* digit;
@@ -75,6 +59,5 @@ Test(stack_app_test, decimal_to_binary) {
         output[i] = *c;
         i++;
     }
-    printf("\n");
     cr_assert(array_eq(output,expected_output)==0,"Must be equal");
 }
