@@ -18,36 +18,69 @@ stack_t* create_stack() {
 	stack_t *stack = (stack_t*) malloc(sizeof(stack_t));
 	if(stack)
 	{
-		printf("%sStack successfully created!%s\n",GRN,NRM);
+		stack->count = 0;
+		stack->top = NULL;
+		success_print("Stack successfully created");
 		return stack;
 	}
 	else {
-		printf("%sMemoryOverflowError: Failed to create stack%s\n",RED,NRM);
+		error_print("MemoryOverflowError: Failed to create stack");
+		return NULL;
 	}
 }
 
-stack_t* push(stack_t* stack, void* dataPtr) {
-
+bool_t push(stack_t* stack, void* dataPtr) {
+	if(stack) {
+		if(!full_stack(stack)) {
+			node_t *node = (node_t*) malloc(sizeof(node_t));
+			node->dataPtr = dataPtr;
+			node->link = stack->top;
+			stack->top = node;
+			(stack->count)++;
+			return true;
+		}
+		else {
+			error_print("StackOverFlowError: Can not push another node");
+			return false;
+		}
+	}
+	else {
+		error_print("StackError: Stack is NULL, push is not allowed");
+		return false;
+	}
 }
 
-stack_t* pop(stack_t* stack) {
-
+void* pop(stack_t* stack) {
+	return NULL;
 }
 
 bool_t empty_stack(stack_t* stack) {
-
+	if(stack->count == 0)
+		return true;
+	return false;
 }
 
+/**
+ * Try creating a node if fail then throw StackOverflowError
+ */ 
 bool_t full_stack(stack_t* stack) {
-
+	node_t *node = (node_t*) malloc(sizeof(node_t));
+	if(node)
+	{
+		free(node);
+		node = NULL;
+		return false;
+	}
+	return true;
 }
 
 stack_t* destroy_stack(stack_t* stack) {
-
+	return NULL;
 }
 
 
 int main(int argc, char **argv) {
-	create_stack();
+	//stack_t *stack = create_stack();
+
 	return 0;
 }
