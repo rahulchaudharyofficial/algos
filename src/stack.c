@@ -134,3 +134,35 @@ int stack_count(stack_t* stack) {
 		return -1;
 	}
 }
+
+/**
+ * To run and print stack run make task
+ * uncomment line that build bin task in makefile
+ * make bin/main
+ * then run the executable ./bin/main
+ * 
+int main(int argc, char const *argv[])
+{
+	warning_print("Starting to print stack");
+	stack_t *stack = create_stack();
+	int *dataPtr = NULL;
+	int i= 1;
+	while(i<=10) {
+		dataPtr = (int*) malloc(sizeof(int));
+    	*dataPtr = i;
+    	push(stack,dataPtr);
+		i++;
+	}
+	
+	while(stack->top!=NULL) {
+		node_t* temp = stack->top;
+		int *data = temp->dataPtr;
+		printf("%d\t",*data);
+		stack->top = temp->link;
+	}
+	printf("\n");
+	destroy_stack(stack);
+	warning_print("Finished printing stack");
+	return 0;
+}
+*/
