@@ -51,7 +51,11 @@ bool_t push(stack_t* stack, void* dataPtr) {
 }
 
 void* pop(stack_t* stack) {
-	return NULL;
+	void *output = NULL;
+	if(stack) {
+		
+	}
+	return output;
 }
 
 bool_t empty_stack(stack_t* stack) {
