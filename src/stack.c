@@ -134,3 +134,17 @@ int stack_count(stack_t* stack) {
 		return -1;
 	}
 }
+
+/*
+int main(int argc, char const *argv[])
+{
+	warning_print("Starting");
+	stack_t *stack = create_stack();
+	int *dataPtr = (int*) malloc(sizeof(int));
+    *dataPtr = 1;
+    push(stack,dataPtr);
+	destroy_stack(stack);
+	warning_print("Finished");
+	return 0;
+}
+*/
