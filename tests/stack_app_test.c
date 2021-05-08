@@ -17,7 +17,8 @@ TestSuite(stack_app_test, .init=setup, .fini=teardown);
 Test(stack_app_test, reverse_number_app) {
     char* input = "Rahul Chaudhary";
     int size = strlen(input)+1;
-    char output[16];
+    char* output = (char*) malloc(size);
+    
     char* expected_output = "yrahduahC luhaR";
 
     char* c = NULL;
