@@ -74,6 +74,8 @@ Test(stack_app_test, valid_parsing_test) {
         }
         else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
             char *top = (char*) pop(stack);
+            free(top);
+            top = NULL;
         }
         expr1++;
     }
@@ -91,8 +93,70 @@ Test(stack_app_test, invalid_parsing_test) {
         }
         else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
             char *top = (char*) pop(stack);
+            free(top);
+            top = NULL;
         }
         expr1++;
     }
     cr_assert(empty_stack(stack)==false,"Stack must not be empty");
+}
+
+Test(stack_app_test, sourcefile_parsing_test) {
+    char token;
+    char* dataPtr;
+    char *fileId = "src/stack.c";
+    FILE* fpIn = fopen(fileId, "r");
+    int lineCount = 1;
+    if(fpIn) {
+        while((token = fgetc(fpIn)) != EOF) {
+            if(token == '\n')
+                lineCount++;
+            if(token == '(' || token == '{' || token == '[') {
+                dataPtr = (char*) malloc(sizeof(char));
+                *dataPtr = token;
+                push(stack, dataPtr);
+            }
+            else {
+                if(token == ')' || token == '}' || token == ']') {
+                    pop(stack);
+                }
+            }
+        }
+        printf("Total line count = %d\n", lineCount);
+        cr_assert(empty_stack(stack) == true, "Stack must be empty");
+        destroy_stack(stack);
+    }
+    else {
+        printf("FileNotFoundError: Unable to locate source %s\n",fileId);
+    }
+}
+
+Test(stack_app_test, test_data_file_parsing_test) {
+    char token;
+    char* dataPtr;
+    char *fileId = "tests/data/parse_test_data.txt";
+    FILE* fpIn = fopen(fileId, "r");
+    int lineCount = 1;
+    if(fpIn) {
+        while((token = fgetc(fpIn)) != EOF) {
+            if(token == '\n')
+                lineCount++;
+            if(token == '(' || token == '{' || token == '[') {
+                dataPtr = (char*) malloc(sizeof(char));
+                *dataPtr = token;
+                push(stack, dataPtr);
+            }
+            else {
+                if(token == ')' || token == '}' || token == ']') {
+                    pop(stack);
+                }
+            }
+        }
+        printf("Total line count = %d\n", lineCount);
+        cr_assert(empty_stack(stack) == true, "Stack must be empty");
+        destroy_stack(stack);
+    }
+    else {
+        printf("FileNotFoundError: Unable to locate source %s\n",fileId);
+    }
 }
