@@ -43,7 +43,7 @@ run: $(BIN)
 
 
 clean:
-	rm $(OBJDIR)/* $(LIBDIR)/* $(TESTBIN)/*
+	rm $(OBJDIR)/* $(LIBDIR)/* $(TESTBIN)/* $(BINDIR)/*
 
 $(TESTBIN)/%: $(TEST)/%.c
 	$(CC) $(CFLAG) $< $(LIB) -o $@ -lcriterion
