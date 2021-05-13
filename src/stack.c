@@ -87,7 +87,7 @@ bool full_stack(stack_t* stack) {
 	return true;
 }
 
-void* stakc_top(stack_t* stack) {
+void* stack_top(stack_t* stack) {
 	void* output = NULL;
 	if(stack) {
 		if(!empty_stack(stack)) {

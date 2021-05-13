@@ -13,6 +13,6 @@
 	bool empty_stack(stack_t*);
 	bool full_stack(stack_t*);
 	void destroy_stack(stack_t*);
-	void* stakc_top(stack_t*);
+	void* stack_top(stack_t*);
 	int stack_count(stack_t*);
 #endif
