@@ -31,7 +31,7 @@ Test(stack_app_test, reverse_number_app) {
     }
 
     int i=0;
-    while(!empty_stack(stack)) {
+    while(!isempty(stack)) {
         char* c = (char*) pop(stack);
         output[i] = *c;
         i++;
@@ -91,7 +91,7 @@ Test(stack_app_test, invalid_parsing_test) {
         if(*c=='(' || *c=='{' || *c=='[') {
             push(stack, c);
         }
-        else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
+        else if(!isempty(stack) && (*c == ')' || *c == '}' || *c == ']')) {
             char *t = (char*) pop(stack);
             free(t);
             t = NULL;

@@ -1,5 +1,7 @@
-#include "stack.h"
 #include<string.h>
+#include "stack.h"
+#include "stack_app.h"
+
 
 int priority(char token)
 {
@@ -12,20 +14,28 @@ int priority(char token)
     return 0;
 }
 
+bool is_operator(char token)
+{
+    if(token == '+' || token == '-' || token == '*' || token == '/' || token == '^')
+        return true;
+    else
+        return false;
+}
+
 char* infix2postfix(char* infix)
 {
     stack_t* stack = create_stack();
     char token;
-	char* output = (char*) calloc(sizeof(char) * (strlen(infix)+1));
+	char* output = (char*) calloc((strlen(infix)+1), sizeof(char));
     //Till reach end of string
 	int count = 0;
     while((token = *infix) != '\0') 
     {
         if(isalnum(token))
         {
-            printf("%c",token);
-			*(output+ count) = token;
-			count++;
+            //printf("%c",token);
+			*(output + count) = token;
+            count++;
         }
         else if(token == '(')
         {
@@ -38,19 +48,19 @@ char* infix2postfix(char* infix)
             char* temp = (char*) pop(stack);
             while(!isempty(stack) && *temp != '(')
             {
-                printf("%c",*temp);
-				*(output+ count) = token;
+                //printf("%c",*temp);
+				*(output+ count) = *temp;
 				count++;
                 temp = (char*) pop(stack);
             }
         }
-        else {
+        else if(is_operator(token)) {
             char* t = (char*) top(stack);
             while(t!=NULL && (priority(*t) >= priority(token)))
             {
                 char* data = (char*) pop(stack);
-                printf("%c",*data);
-				*(output+ count) = token;
+                //printf("%c",*data);
+				*(output+ count) = *data;
 				count++;
                 t = (char*) top(stack);
             }
@@ -59,7 +69,26 @@ char* infix2postfix(char* infix)
             push(stack, t);
         }
         infix++;
-    } 
+    }
+    
+    if(!isempty(stack))
+    {
+        char* temp = (char*) top(stack);
+        while(temp != NULL && !isempty(stack))
+        {
+            temp = (char*) pop(stack);
+            *(output + count) = *temp;
+            count++;
+        }
+        
+    }
+    
+   if(!isempty(stack))
+    {
+        printf("stack is not empty yet");
+        char* t = (char*) top(stack);
+        printf("value = %c\n", *t);
+    }
     printf("\n");
 	return output;
 }
