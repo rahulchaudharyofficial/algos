@@ -10,7 +10,7 @@ void setup() {
 }
 
 void teardown() {
-    destroy_stack(stack);
+    destroy(stack);
 }
 
 TestSuite(stack_app_test, .init=setup, .fini=teardown);
@@ -54,7 +54,7 @@ Test(stack_app_test, decimal_to_binary) {
     }
 
     int i=0;
-    while(!empty_stack(stack)) {
+    while(!isempty(stack)) {
         int* c = (int*) pop(stack);
         output[i] = *c;
         i++;
@@ -72,14 +72,14 @@ Test(stack_app_test, valid_parsing_test) {
         if(*c=='(' || *c=='{' || *c=='[') {
             push(stack, c);
         }
-        else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
-            char *top = (char*) pop(stack);
-            free(top);
-            top = NULL;
+        else if(!isempty(stack) && (*c == ')' || *c == '}' || *c == ']')) {
+            char *t = (char*) pop(stack);
+            free(t);
+            t = NULL;
         }
         expr1++;
     }
-    cr_assert(empty_stack(stack)==true,"Stack must be empty");
+    cr_assert(isempty(stack)==true,"Stack must be empty");
 }
 
 Test(stack_app_test, invalid_parsing_test) {
@@ -92,13 +92,13 @@ Test(stack_app_test, invalid_parsing_test) {
             push(stack, c);
         }
         else if(!empty_stack(stack) && (*c == ')' || *c == '}' || *c == ']')) {
-            char *top = (char*) pop(stack);
-            free(top);
-            top = NULL;
+            char *t = (char*) pop(stack);
+            free(t);
+            t = NULL;
         }
         expr1++;
     }
-    cr_assert(empty_stack(stack)==false,"Stack must not be empty");
+    cr_assert(isempty(stack)==false,"Stack must not be empty");
 }
 
 Test(stack_app_test, sourcefile_parsing_test) {
@@ -123,8 +123,8 @@ Test(stack_app_test, sourcefile_parsing_test) {
             }
         }
         printf("Total line count = %d\n", lineCount);
-        cr_assert(empty_stack(stack) == true, "Stack must be empty");
-        destroy_stack(stack);
+        cr_assert(isempty(stack) == true, "Stack must be empty");
+        destroy(stack);
     }
     else {
         printf("FileNotFoundError: Unable to locate source %s\n",fileId);
@@ -153,8 +153,8 @@ Test(stack_app_test, test_data_file_parsing_test) {
             }
         }
         printf("Total line count = %d\n", lineCount);
-        cr_assert(empty_stack(stack) == true, "Stack must be empty");
-        destroy_stack(stack);
+        cr_assert(isempty(stack) == true, "Stack must be empty");
+        destroy(stack);
     }
     else {
         printf("FileNotFoundError: Unable to locate source %s\n",fileId);
