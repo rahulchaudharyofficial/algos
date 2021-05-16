@@ -1,17 +1,19 @@
 #include "stack.h"
 #include "utils.h"
+#include "stack_app.h"
 
 #define NUMERIC_START 48
 #define NUMERIC_END 57
 
 
-int postfix_evaluation(stack_t* stack, char* postfix_expression)
+int postfix_evaluation(char* postfix_expression)
 {
     //sanity Check
     assert(stack != NULL);
     assert(postfix_expression != NULL);
 
     //If all well then start evaluation process
+    stack_t* stack = create_stack();
     int result = -1;
 
     while(*postfix_expression != '\0')
@@ -37,9 +39,11 @@ int postfix_evaluation(stack_t* stack, char* postfix_expression)
     }
     int* final_result = (int*)pop(stack);
     result = *final_result;
+    destroy(stack);
     return result;
 }
 
+/*
 int main(int argc, char const *argv[])
 {
     stack_t* stack = create_stack();
@@ -51,3 +55,4 @@ int main(int argc, char const *argv[])
     destroy(stack);
     return 0;
 }
+*/
