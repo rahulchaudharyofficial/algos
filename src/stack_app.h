@@ -3,5 +3,5 @@
     #include "stack.h"
     
     char* infix2postfix(char*);
-    int postfix_evaluation(char* postfix_expression)
+    int postfix_evaluation(char* postfix_expression);
 #endif
