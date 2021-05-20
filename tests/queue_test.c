@@ -56,7 +56,5 @@ Test(queue_operations_test, enqueue_test)
 	{
 		int* data = (int*) dequeue(queue);
 		cr_assert(*data == i, "Must be equal");
-	}
-	
-	
+	}	
 }
