@@ -58,6 +58,14 @@ qnode_t* create_qnode()
 void destroy_queue(queue_t* queue)
 {
 	assert(queue != NULL);
+	qnode_t* node = NULL;
+	while(queue->front != NULL)
+	{
+		free(queue->front->data);
+		node = queue->front;
+		queue->front = queue->front->link;
+		free(node);
+	}
 	free(queue);
 }
 
