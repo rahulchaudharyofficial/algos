@@ -1,33 +1,13 @@
 #include<string.h>
 #include "stack.h"
 #include "stack_app.h"
+#include "utils.h"
 
 /**
  * This is very important
  * 
  * 
  */
-
-
-int priority(char token)
-{
-    if(token == '^')
-        return 3;
-    if(token == '*' || token == '/')
-        return 2;
-    if(token == '+' || token == '-')
-        return 1;
-    return 0;
-}
-
-bool is_operator(char token)
-{
-    if(token == '+' || token == '-' || token == '*' || token == '/' || token == '^')
-        return true;
-    else
-        return false;
-}
-
 char* infix2postfix(char* infix)
 {
     stack_t* stack = create_stack();
