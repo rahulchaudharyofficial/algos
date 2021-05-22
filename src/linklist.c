@@ -46,6 +46,8 @@ llhead_t *create_list(int (*compare)(void *arg1, void *arg2))
 
 llhead_t *destroy_list(llhead_t *list)
 {
+    assert(list != NULL);
+    free(list);
 }
 
 bool add_node(llhead_t *list, void *data)
@@ -79,23 +81,19 @@ bool remove_node(llhead_t *list, void *data)
 {
     assert(list != NULL);
     assert(data != NULL);
-
-    llnode_t* temp = list->head;
-    while(temp!=NULL) {
-        if(*data == * temp->data)
-        {
-            
-        }
-        temp = temp->link;
-    }
+    return false;
 }
 
 bool search(llhead_t *list, void *data)
 {
+    assert(list != NULL);
+    assert(data != NULL);
+    return false;
 }
 
 llnode_t *retrieve(llhead_t *list, void *data)
 {
+    return NULL;
 }
 
 void traverse(llhead_t *list)
@@ -104,4 +102,5 @@ void traverse(llhead_t *list)
 
 int list_size(llhead_t *list)
 {
+    return -1;
 }
