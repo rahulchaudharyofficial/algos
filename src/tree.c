@@ -7,7 +7,7 @@ struct TreeNode
 	struct TreeNode* right;
 };
 
-tnode_t* create_node(void* value)
+tnode_t* create_tree_node(void* value)
 {
 	tnode_t* node = (tnode_t*)malloc(sizeof(tnode_t));
 	if (node)
@@ -98,12 +98,32 @@ void post_order_traversal(tnode_t* root)
 
 
 //BFT (Breadth first traversal) Start
-
-void breath_first_traversal(tnode_t* root)
+//OUTPUT = 1 4 6 2 3 7 8
+void breath_first_traversal(tnode_t* root, queue_t* queue)
 {
 	if(root)
 	{
+		tnode_t* current_node = root;
+		while(current_node != NULL)
+		{
+			printf("%d ",*((int*) current_node->value));
+			if(current_node->left)
+			{
+				enqueue(queue, current_node->left);
+			}
 
+			if(current_node->right)
+			{
+				enqueue(queue,current_node->right);
+			}
+			if(!is_queue_empty(queue))
+			{
+				current_node = (tnode_t*) dequeue(queue);
+			}
+			else {
+				current_node = NULL;
+			}
+		}
 	}
 }
 
@@ -112,49 +132,49 @@ void breath_first_traversal(tnode_t* root)
 *					(4)						(6)
 *				(2)		(3)				(7)		(8)
 */
-
+/*
 int main(int argc, char** argv)
 {
 	//Build Test Data
 	int x1 = 1;
 	int* xp1 = (int*)malloc(sizeof(int));
 	xp1 = &x1;
-	tnode_t* root = create_node(xp1);
+	tnode_t* root = create_tree_node(xp1);
 
 	int x2 = 2;
 	int* xp2 = (int*)malloc(sizeof(int));
 	xp2 = &x2;
-	tnode_t* n2 = create_node(xp2);
+	tnode_t* n2 = create_tree_node(xp2);
 
 	int x3 = 3;
 	int* xp3 = (int*)malloc(sizeof(int));
 	xp3 = &x3;
-	tnode_t* n3 = create_node(xp3);
+	tnode_t* n3 = create_tree_node(xp3);
 
 	int x4 = 4;
 	int* xp4 = (int*)malloc(sizeof(int));
 	xp4 = &x4;
-	tnode_t* n4 = create_node(xp4);
+	tnode_t* n4 = create_tree_node(xp4);
 
 	int x5 = 5;
 	int* xp5 = (int*)malloc(sizeof(int));
 	xp5 = &x5;
-	tnode_t* n5 = create_node(xp5);
+	tnode_t* n5 = create_tree_node(xp5);
 
 	int x6 = 6;
 	int* xp6 = (int*)malloc(sizeof(int));
 	xp6 = &x6;
-	tnode_t* n6 = create_node(xp6);
+	tnode_t* n6 = create_tree_node(xp6);
 
 	int x7 = 7;
 	int* xp7 = (int*)malloc(sizeof(int));
 	xp7 = &x7;
-	tnode_t* n7 = create_node(xp7);
+	tnode_t* n7 = create_tree_node(xp7);
 
 	int x8 = 8;
 	int* xp8 = (int*)malloc(sizeof(int));
 	xp8 = &x8;
-	tnode_t* n8 = create_node(xp8);
+	tnode_t* n8 = create_tree_node(xp8);
 
 	root->left = n4;
 	root->right = n6;
@@ -167,16 +187,28 @@ int main(int argc, char** argv)
 	
 
 	//print_tree(root);
+	printf(" -------- Pre Order ---------- \n");
 	pre_order_traversal(root);
 	printf("\n");
 
+
+	printf(" -------- In Order ---------- \n");
 	in_order_traversal(root);
 	printf("\n");
 
+
+	printf(" -------- Post Order ---------- \n");
 	post_order_traversal(root);
+	printf("\n");destroy_queue(queue);
+
+
+	printf(" -------- Breath First Traversal ---------- \n");
+	queue_t* queue = create_queue();
+	breath_first_traversal(root,queue);
 	printf("\n");
-	
+
 	//Clean Test Data
+	destroy_queue(queue);
 	free(root);
 	free(n2);
 	free(n3);
@@ -186,3 +218,4 @@ int main(int argc, char** argv)
 	free(n7);
 	free(n8);
 }
+*/

@@ -16,4 +16,6 @@
     void* front(queue_t*);
     void* rear(queue_t*);
     int queue_size(queue_t*);
+    bool is_queue_full();
+    bool is_queue_empty(queue_t*);
 #endif
