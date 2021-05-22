@@ -48,6 +48,7 @@ llhead_t *destroy_list(llhead_t *list)
 {
     assert(list != NULL);
     free(list);
+    return NULL;
 }
 
 bool add_node(llhead_t *list, void *data)
